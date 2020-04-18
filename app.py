@@ -20,3 +20,11 @@ def job_list():
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+
+@app.route('/runpython', method=['GET'])
+def run_python():
+    import treeon_incruit
+    import treeon_jobkorea
+    import treeon_peopleNjob
+    import treeon_saramIn
+    return 'Success!'
