@@ -17,8 +17,8 @@ def job_list():
 	# 1. db에서 데이터 가져오기.
     res = list(db.information.find({},{'_id':0}))
     return jsonify({'result': 'success', 'data' : res, 'msg': '완료'})
-    
-@app.route('/runpython', method=['GET'])
+
+@app.route('/runpython', methods=['GET'])
 def run_python():
     import treeon_incruit
     import treeon_jobkorea
