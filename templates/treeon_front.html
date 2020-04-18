@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+
+  <!-- Webpage Title -->
+  <title> Treeon ㅣ 한눈에 쏙 이직 정보</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='treeon_style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Cute+Font|Gamja+Flower&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  <!-- 구글 폰트-->
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+  <script>
+
+    $(document).ready(function () {
+      $('#contents_add').html('');
+      write_info();
+    });
+
+    function write_info() {
+      $.ajax({
+        type: 'GET', // 타입을 작성합니다.
+        url: '/information', // url을 작성합니다.
+        data: {},
+        // API 쓰는 코드 찾아보기 (OPEN API) append 써서 작성해보기
+        success: function (response) {
+          if (response['result'] == 'success') {
+            let data = response['data'];
+            for (let i = 0; i < data.length; i++) {
+              make_list(i+1, data[i]['title'], data[i]['position'], data[i]['name'], data[i]['region'], data[i]['enddate'])
+            }
+          }
+        }
+      });
+    }
+
+    function make_list(row, title, position, name, region, enddate) {
+      let temp_html = '<tr class="contents_add">\
+        <td class="row">'+ row + '</p>\
+        <td class="title">'+ title + '</p>\
+        <td class="position">'+ position + '</p>\
+        <td class="name">'+ name + '</p>\
+        <td class="region">'+ region + '</p>\
+        <td class="enddate">'+ enddate + '</p>\
+      </tr>';
+      $('#contents_add').append(temp_html);
+    }
+
+  </script>
+</head>
+
+<body>
+  <div class="treeon_title">
+    <h3> Treeon </h3>
+  </div>
+
+  <span style="float:right;">
+    <button onclick="write_info()" type="button" class="btn btn-primary"> 새로고침 </button>
+  </span>
+  
+  <br></br>
+  <table class="table" id="job_information">
+    <thead>
+      <tr>
+        <th scope="col">순서</th>
+        <th scope="col">제목</th>
+        <th scope="col">직종</th>
+        <th scope="col">이름</th>
+        <th scope="col">지역</th>
+        <th scope="col">마감일</th>
+      </tr>
+    </thead>
+    <tbody id="contents_add">
+    </tbody>
+  </table>
+</body>
+
+</html>
