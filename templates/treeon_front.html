@@ -10,9 +10,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- css -->
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='treeon_style.css') }}">
-  <link href="https://fonts.googleapis.com/css?family=Cute+Font|Gamja+Flower&display=swap" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -29,6 +26,39 @@
 
   <!-- 구글 폰트-->
   <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+  <!-- style -->
+  <style>
+
+    .wrap {
+      width: 1000px;
+      margin: auto;
+    }
+
+    .comment {
+      color: blue;
+      font-weight: bold;
+    }
+
+    .treeon_title {
+      margin: auto;
+      text-align: center;
+    }
+
+    .table th {
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    #contents_add{
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    font-weight: 100;
+    font-size: 13px;
+    }
+
+  </style>
 
   <script>
 
@@ -47,7 +77,7 @@
           if (response['result'] == 'success') {
             let data = response['data'];
             for (let i = 0; i < data.length; i++) {
-              make_list(i+1, data[i]['title'], data[i]['position'], data[i]['name'], data[i]['region'], data[i]['enddate'])
+              make_list(i + 1, data[i]['title'], data[i]['position'], data[i]['name'], data[i]['region'], data[i]['enddate'])
             }
           }
         }
@@ -67,22 +97,28 @@
     }
 
   </script>
+
 </head>
 
 <body>
-  <div class="treeon_title">
-    <h3> Treeon </h3>
-  </div>
+  <div class="wrap">
+    <div class="treeon_logo">
+      <img src="http://garmuri.com/files/attach/images/169/748/083/9a976fd4c3eea831c7bf3062c2937d7b.jpg" class="img-fluid" alt="Responsive image">
+    </div>
+    <div class="treeon_title">
+      <h3> Treeon ㅣ 한눈에 쏙 이직 정보 </h3>
+    </div>
 
   <span style="float:right;">
     <button onclick="write_info()" type="button" class="btn btn-primary"> 새로고침 </button>
   </span>
-  
+
   <br></br>
+  <caption>한 눈에 쏙 이직 공고 리스트</caption>
   <table class="table" id="job_information">
     <thead>
       <tr>
-        <th scope="col">순서</th>
+        <th scope="col">#</th>
         <th scope="col">제목</th>
         <th scope="col">직종</th>
         <th scope="col">이름</th>
@@ -93,6 +129,7 @@
     <tbody id="contents_add">
     </tbody>
   </table>
+</div>
 </body>
 
 </html>
