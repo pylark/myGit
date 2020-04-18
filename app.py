@@ -17,10 +17,7 @@ def job_list():
 	# 1. db에서 데이터 가져오기.
     res = list(db.information.find({},{'_id':0}))
     return jsonify({'result': 'success', 'data' : res, 'msg': '완료'})
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True)
-
+    
 @app.route('/runpython', method=['GET'])
 def run_python():
     import treeon_incruit
@@ -28,3 +25,6 @@ def run_python():
     import treeon_peopleNjob
     import treeon_saramIn
     return 'Success!'
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True)
