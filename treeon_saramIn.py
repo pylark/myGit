@@ -18,6 +18,7 @@ saramIn_name = soup.select("#recruit_info_list > div.content > div > div.area_co
 saramIn_region = soup.select("#recruit_info_list > div.content > div > div.area_job > div.job_condition > span > a")
 saramIn_enddate = soup.select("#recruit_info_list > div.content > div > div.area_job > div.job_date > span")
 
+result = []
 
 for item in zip(saramIn_title, saramIn_position, saramIn_name, saramIn_region, saramIn_enddate):
     if db.information.find_one({"title" : item[0].text.strip()}, {'_id:0'}) == None:

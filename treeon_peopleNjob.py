@@ -20,6 +20,8 @@ peoplenjob_enddate = soup.select("#content-main > div > table > tbody > tr > td:
 
 
 # 크롤링 내용
+result = []
+
 for item in zip(peoplenjob_startdate, peoplenjob_title, peoplenjob_position, peoplenjob_name, peoplenjob_region, peoplenjob_enddate):
     if db.information.find_one({'title':item[1].text.strip()},{'_id':0}) == None:
         db.information.insert_one({
