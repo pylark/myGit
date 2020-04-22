@@ -17,12 +17,12 @@ peoplenjob_position = soup.select("#content-main > div > table > tbody > tr > td
 peoplenjob_name = soup.select("#content-main > div > table > tbody > tr > td.name > a")
 peoplenjob_region = soup.select("#content-main > div > table > tbody > tr > td:nth-child(5) > a")
 peoplenjob_enddate = soup.select("#content-main > div > table > tbody > tr > td:nth-child(6) > span")
-
+peoplenjob_link = soup.select("#content-main > div > table > tbody > tr > td.job-title > a")
 
 # 크롤링 내용
 result = []
 
-for item in zip(peoplenjob_startdate, peoplenjob_title, peoplenjob_position, peoplenjob_name, peoplenjob_region, peoplenjob_enddate):
+for item in zip(peoplenjob_startdate, peoplenjob_title, peoplenjob_position, peoplenjob_name, peoplenjob_region, peoplenjob_enddate, peoplenjob_link):
     if db.information.find_one({'title':item[1].text.strip()},{'_id':0}) == None:
         db.information.insert_one({
             "startdate": item[0].text.strip(), 
@@ -30,5 +30,6 @@ for item in zip(peoplenjob_startdate, peoplenjob_title, peoplenjob_position, peo
             "position": item[2].text.strip(), 
             "name": item[3].text.strip(), 
             "region": item[4].text.strip(), 
-            "enddate": item[5].text.strip()
+            "enddate": item[5].text.strip(),
+            "link": item[6].attrs['href']
             })

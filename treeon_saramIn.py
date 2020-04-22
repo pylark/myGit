@@ -17,15 +17,17 @@ saramIn_position = soup.select("#recruit_info_list > div.content > div > div.are
 saramIn_name = soup.select("#recruit_info_list > div.content > div > div.area_corp > strong > a > span")
 saramIn_region = soup.select("#recruit_info_list > div.content > div > div.area_job > div.job_condition > span > a")
 saramIn_enddate = soup.select("#recruit_info_list > div.content > div > div.area_job > div.job_date > span")
+saramIn_link = soup.select("#recruit_info_list > div.content > div > div.area_job > h2 > a")
 
 result = []
 
-for item in zip(saramIn_title, saramIn_position, saramIn_name, saramIn_region, saramIn_enddate):
+for item in zip(saramIn_title, saramIn_position, saramIn_name, saramIn_region, saramIn_enddate, saramIn_link):
     if db.information.find_one({"title" : item[0].text.strip()}, {'_id:0'}) == None:
         db.information.insert_one({
             "title": item[0].text.strip(), 
             "position": item[1].text.strip(), 
             "name": item[2].text.strip(), 
             "region": item[3].text.strip(), 
-            "enddate": item[4].text.strip()
+            "enddate": item[4].text.strip(),
+            "link": item[5].attrs['href']
             })
