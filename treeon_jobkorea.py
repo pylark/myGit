@@ -17,9 +17,10 @@ jobkorea_position = soup.select("#dev-gi-list > div > div.tplList.tplJobList > t
 jobkorea_name = soup.select("#dev-gi-list > div > div.tplList.tplJobList > table > tbody > tr > td.tplCo > a")
 jobkorea_region = soup.select("#dev-gi-list > div > div.tplList.tplJobList > table > tbody > tr > td.tplTit > div > p.etc > span:nth-child(3)")
 jobkorea_enddate = soup.select("#dev-gi-list > div > div.tplList.tplJobList > table > tbody > tr > td.odd > span.date.dotum > span")
+jobkorea_link = soup.select("#dev-gi-list > div > div.tplList.tplJobList > table > tbody > tr > td.tplTit > div > strong > a")
 
 # 크롤링 내용
-for item in zip(jobkorea_startdate, jobkorea_title, jobkorea_position, jobkorea_name, jobkorea_region, jobkorea_enddate):
+for item in zip(jobkorea_startdate, jobkorea_title, jobkorea_position, jobkorea_name, jobkorea_region, jobkorea_enddate, jobkorea_link):
     if db.information.find_one({"title" : item[1].text.strip()}, {'_id': 0}) == None:
         db.information.insert_one({
             "startdate": item[0].text.strip(), 
@@ -27,5 +28,6 @@ for item in zip(jobkorea_startdate, jobkorea_title, jobkorea_position, jobkorea_
             "position": item[2].text.strip(), 
             "name": item[3].text.strip(), 
             "region": item[4].text.strip(), 
-            "enddate": item[5].text.strip()
+            "enddate": item[5].text.strip(),
+            "link": 'www.jobkorea.co.kr'+ item[6].attrs['href']
             })
